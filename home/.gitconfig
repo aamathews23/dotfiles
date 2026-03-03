@@ -1,0 +1,12 @@
+[user]
+  name = Aaron Mathews
+  email = aamathews23@gmail.com
+
+[core]
+  editor = code --wait
+
+[init]
+  defaultBranch = main
+
+[pull]
+  rebase = false
