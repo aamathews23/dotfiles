@@ -32,11 +32,17 @@ echo "==> Updating brew..."
 brew update
 
 echo "==> Installing CLI tools from Brewfile..."
+brew bundle --file="$REPO_DIR/Brewfile"
 
-if [[ "$PLATFORM" == "WSL" ]]; then
-  brew bundle --file="$REPO_DIR/Brewfile.wsl"
-else
-  brew bundle --file="$REPO_DIR/Brewfile"
+#######################################
+# Install VS Code (macOS and Linux only)
+#######################################
+
+if [[ "$PLATFORM" == "MAC" ]] || [[ "$PLATFORM" == "LINUX" ]]; then
+  if ! command -v code &> /dev/null; then
+    echo "==> Installing VS Code..."
+    brew install --cask visual-studio-code
+  fi
 fi
 
 #######################################
