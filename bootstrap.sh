@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-REPO_URL="https://github.com/YOUR_USERNAME/dotfiles.git"
+REPO_URL="https://github.com/aamathews23/dotfiles.git"
 TARGET_DIR="$HOME/.dotfiles"
 
 echo "==> Bootstrap script starting..."
