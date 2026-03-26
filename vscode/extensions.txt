@@ -1,15 +1,11 @@
 bradlc.vscode-tailwindcss
 dbaeumer.vscode-eslint
-docker.docker
 eamodio.gitlens
 editorconfig.editorconfig
 github.copilot-chat
 github.vscode-github-actions
 mrmlnc.vscode-scss
-ms-azuretools.vscode-containers
-ms-azuretools.vscode-docker
 ms-playwright.playwright
-ms-vscode-remote.remote-containers
 pkief.material-icon-theme
 redhat.vscode-yaml
 robbowen.synthwave-vscode

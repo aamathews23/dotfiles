@@ -18,6 +18,11 @@ if command -v zoxide &> /dev/null; then
   eval "$(zoxide init zsh)"
 fi
 
+# Brew
+if command -v brew &> /dev/null; then
+  eval "$(/opt/homebrew/bin/brew shellenv 2>/dev/null || /home/linuxbrew/.linuxbrew/bin/brew shellenv 2>/dev/null || true)"
+fi
+
 # Sensible defaults
 setopt autocd
 setopt correct

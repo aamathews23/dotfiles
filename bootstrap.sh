@@ -2,7 +2,8 @@
 set -e
 
 REPO_URL="https://github.com/aamathews23/dotfiles.git"
-TARGET_DIR="$HOME/.dotfiles"
+CODE_DIR="$HOME/code"
+TARGET_DIR="$HOME/code/dotfiles"
 
 echo "==> Bootstrap script starting..."
 
@@ -30,6 +31,11 @@ fi
 #######################################
 # Clone dotfiles repository
 #######################################
+
+if [ ! -d "$CODE_DIR" ]; then
+  echo "==> Creating code directory..."
+  mkdir -p "$CODE_DIR"
+fi
 
 if [ ! -d "$TARGET_DIR" ]; then
   echo "==> Cloning dotfiles repository..."
