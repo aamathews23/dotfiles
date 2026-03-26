@@ -47,6 +47,16 @@ for file in "$REPO_DIR"/home/.*; do
     continue
   fi
 
+  if [[ "$filename" == ".zshrc" && "$SHELL" != *"zsh"* ]]; then
+    echo "Skipping .zshrc since current shell is not zsh"
+    continue
+  fi
+
+  if [[ "$filename" == ".bashrc" && "$SHELL" != *"bash"* ]]; then
+    echo "Skipping .bashrc since current shell is not bash"
+    continue
+  fi
+
   if [[ -e "$target" && ! -L "$target" ]]; then
     echo "Skipping existing file: $target"
   else
