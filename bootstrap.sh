@@ -8,6 +8,15 @@ TARGET_DIR="$HOME/code/dotfiles"
 echo "==> Bootstrap script starting..."
 
 #######################################
+# Install Git
+#######################################
+
+if ! command -v git &> /dev/null; then
+  echo "==> Installing git..."
+  brew install git
+fi
+
+#######################################
 # Install Homebrew
 #######################################
 
@@ -18,15 +27,6 @@ if ! command -v brew &> /dev/null; then
 fi
 
 eval "$(/opt/homebrew/bin/brew shellenv 2>/dev/null || /home/linuxbrew/.linuxbrew/bin/brew shellenv 2>/dev/null || true)"
-
-#######################################
-# Install Git
-#######################################
-
-if ! command -v git &> /dev/null; then
-  echo "==> Installing git..."
-  brew install git
-fi
 
 #######################################
 # Clone dotfiles repository
