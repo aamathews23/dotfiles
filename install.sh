@@ -47,6 +47,8 @@ for file in "$REPO_DIR"/home/.*; do
     continue
   fi
 
+  # TODO: How to overwrite existing files?
+
   if [[ "$filename" == ".zshrc" && "$SHELL" != *"zsh"* ]]; then
     echo "Skipping .zshrc since current shell is not zsh"
     continue
@@ -70,7 +72,7 @@ done
 
 if [ ! -d "$HOME/.nvm" ]; then
   echo "==> Installing nvm..."
-  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+  PROFILE=/dev/null bash -c 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash'
 fi
 
 #######################################
@@ -79,7 +81,7 @@ fi
 
 if ! command -v pnpm &> /dev/null; then
   echo "==> Installing pnpm..."
-  curl -fsSL https://get.pnpm.io/install.sh | sh -
+  curl -fsSL https://get.pnpm.io/install.sh | sh - --no-setup
 fi
 
 #######################################
@@ -88,7 +90,7 @@ fi
 
 if ! command -v rustup &> /dev/null; then
   echo "==> Installing rustup..."
-  curl https://sh.rustup.rs -sSf | sh -s -- -y
+  curl https://sh.rustup.rs -sSf | sh -s -- -y --no-modify-path
 fi
 
 #######################################
