@@ -12,7 +12,7 @@ echo "==> Bootstrap script starting..."
 # Linux Prerequisites
 #######################################
 
-if [[ "$OS" == "Ubuntu" ]]; || [[ "$OS" == "Debian" ]]; then
+if [[ "$OS" == "Linux" ]]; then
   echo "==> Installing Linux prerequisites..."
   sudo apt update
   sudo apt install -y curl git build-essential procps file
