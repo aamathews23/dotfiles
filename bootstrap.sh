@@ -4,16 +4,18 @@ set -e
 REPO_URL="https://github.com/aamathews23/dotfiles.git"
 CODE_DIR="$HOME/code"
 TARGET_DIR="$HOME/code/dotfiles"
+OS="$(uname -s)"
 
 echo "==> Bootstrap script starting..."
 
 #######################################
-# Install Git
+# Linux Prerequisites
 #######################################
 
-if ! command -v git &> /dev/null; then
-  echo "==> Installing git..."
-  brew install git
+if [[ "$OS" == "Ubuntu" ]]; || [[ "$OS" == "Debian" ]]; then
+  echo "==> Installing Linux prerequisites..."
+  sudo apt update
+  sudo apt install -y curl git build-essential procps file
 fi
 
 #######################################
@@ -27,6 +29,15 @@ if ! command -v brew &> /dev/null; then
 fi
 
 eval "$(/opt/homebrew/bin/brew shellenv 2>/dev/null || /home/linuxbrew/.linuxbrew/bin/brew shellenv 2>/dev/null || true)"
+
+#######################################
+# Install Git
+#######################################
+
+if ! command -v git &> /dev/null; then
+  echo "==> Installing git..."
+  brew install git
+fi
 
 #######################################
 # Clone dotfiles repository
