@@ -47,8 +47,6 @@ for file in "$REPO_DIR"/home/.*; do
     continue
   fi
 
-  # TODO: How to overwrite existing files?
-
   if [[ "$filename" == ".zshrc" && "$SHELL" != *"zsh"* ]]; then
     echo "Skipping .zshrc since current shell is not zsh"
     continue
@@ -60,7 +58,13 @@ for file in "$REPO_DIR"/home/.*; do
   fi
 
   if [[ -e "$target" && ! -L "$target" ]]; then
-    echo "Skipping existing file: $target"
+    if [[ "$target" == "$HOME/.zshrc" || "$target" == "$HOME/.bashrc" ]]; then
+      echo "Backing up existing file: $target to $target.bak"
+      mv "$target" "$target.bak"
+      ln -sf "$file" "$target"
+    else
+      echo "Skipping existing file: $target"
+    fi
   else
     ln -sf "$file" "$target"
   fi
@@ -81,7 +85,7 @@ fi
 
 if ! command -v pnpm &> /dev/null; then
   echo "==> Installing pnpm..."
-  curl -fsSL https://get.pnpm.io/install.sh | sh - --no-setup
+  curl -fsSL https://get.pnpm.io/install.sh | sh -
 fi
 
 #######################################
