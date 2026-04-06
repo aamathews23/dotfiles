@@ -4,5 +4,3 @@ brew "bat"
 brew "starship"
 brew "zoxide"
 brew "eza"
-
-cask "font-geistmono-nerd-font"
