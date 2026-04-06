@@ -115,20 +115,5 @@ else
   echo "VS Code CLI not found. Skipping extension install."
 fi
 
-#######################################
-# Install Nerd Font
-#######################################
-
-if command -v wget &> /dev/null; then
-  echo "==> Installing Geist Mono Nerd Font..."
-  wget -P ~/.local/share/fonts https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/GeistMono.zip \
-  && cd ~/.local/share/fonts \
-  && unzip ~/.local/share/fonts/GeistMono.zip \
-  && rm ~/.local/share/fonts/GeistMono.zip \
-  && fc-cache -fv
-else
-  echo "wget not found. Skipping Nerd Font install."
-fi
-
 echo ""
 echo "✅ Setup complete. Restart your shell."
