@@ -123,8 +123,8 @@ if command -v wget &> /dev/null; then
   echo "==> Installing Geist Mono Nerd Font..."
   wget -P ~/.local/share/fonts https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/GeistMono.zip \
   && cd ~/.local/share/fonts \
-  && unzip GeistMono.zip \
-  && rm GeistMono.zip \
+  && unzip ~/.local/share/fonts/GeistMono.zip \
+  && rm ~/.local/share/fonts/GeistMono.zip \
   && fc-cache -fv
 else
   echo "wget not found. Skipping Nerd Font install."
