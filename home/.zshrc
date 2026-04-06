@@ -28,6 +28,11 @@ if command -v brew &> /dev/null; then
   eval "$(/opt/homebrew/bin/brew shellenv 2>/dev/null || /home/linuxbrew/.linuxbrew/bin/brew shellenv 2>/dev/null || true)"
 fi
 
+# FZF
+if command -v fzf &> /dev/null; then
+  eval <(fzf --zsh)
+fi
+
 # Sensible defaults
 setopt autocd
 setopt correct
