@@ -15,7 +15,7 @@ echo "==> Bootstrap script starting..."
 if [[ "$OS" == "Linux" ]]; then
   echo "==> Installing Linux prerequisites..."
   sudo apt update
-  sudo apt install -y curl git build-essential procps file
+  sudo apt install -y curl git build-essential procps file wget
 fi
 
 #######################################
