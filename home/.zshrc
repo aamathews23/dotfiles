@@ -1,13 +1,20 @@
 # Path
 export PATH="$HOME/bin:$PATH"
 
-# NVM
+# nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
 # Rust
 export PATH="$HOME/.cargo/bin:$PATH"
+
+# pnpm
+export PNPM_HOME="/home/aamathews/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
 
 # Brew
 eval "$(/opt/homebrew/bin/brew shellenv 2>/dev/null || /home/linuxbrew/.linuxbrew/bin/brew shellenv 2>/dev/null || true)"
@@ -34,9 +41,3 @@ setopt correct
 if [ -f ~/.aliases ]; then
   . ~/.aliases
 fi
-
-export PNPM_HOME="/home/aamathews/.local/share/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac

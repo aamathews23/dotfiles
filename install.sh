@@ -41,6 +41,33 @@ if [[ "$PLATFORM" == "MAC" ]] || [[ "$PLATFORM" == "LINUX" ]]; then
 fi
 
 #######################################
+# Install nvm
+#######################################
+
+if [ ! -d "$HOME/.nvm" ]; then
+  echo "==> Installing nvm..."
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
+fi
+
+#######################################
+# Install pnpm
+#######################################
+
+if ! command -v pnpm &> /dev/null; then
+  echo "==> Installing pnpm..."
+  curl -fsSL https://get.pnpm.io/install.sh | sh -
+fi
+
+#######################################
+# Install rustup
+#######################################
+
+if ! command -v rustup &> /dev/null; then
+  echo "==> Installing rustup..."
+  curl https://sh.rustup.rs -sSf | sh -s -- -y
+fi
+
+#######################################
 # Symlink dotfiles
 #######################################
 
@@ -76,44 +103,6 @@ for file in "$REPO_DIR"/home/.*; do
     ln -sf "$file" "$target"
   fi
 done
-
-#######################################
-# Install nvm
-#######################################
-
-if [ ! -d "$HOME/.nvm" ]; then
-  echo "==> Installing nvm..."
-  PROFILE=/dev/null bash -c 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash'
-fi
-
-#######################################
-# Install pnpm
-#######################################
-
-if ! command -v pnpm &> /dev/null; then
-  echo "==> Installing pnpm..."
-  curl -fsSL https://get.pnpm.io/install.sh | sh -
-  
-  echo "==> Clean pnpm path..."
-  if [[ "$SHELL_TYPE" == "zsh" ]]; then
-    SHELL_FILE=".zshrc"
-  else
-    SHELL_FILE=".bashrc"
-  fi
-
-  # Delete pnpm path lines from shell config file.
-  # This allows the lines to be added to Git, but prevents them from being added twice to the shell config.
-  grep -n "# pnpm" "$HOME/$SHELL_FILE" | cut -d: -f1 | sed ":a;N;$!ba;s/\n/,/g" | sed "s/$/d/" | sed -i -f - "$HOME/$SHELL_FILE"
-fi
-
-#######################################
-# Install rustup
-#######################################
-
-if ! command -v rustup &> /dev/null; then
-  echo "==> Installing rustup..."
-  curl https://sh.rustup.rs -sSf | sh -s -- -y --no-modify-path
-fi
 
 #######################################
 # Install VS Code Extensions
