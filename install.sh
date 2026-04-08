@@ -14,7 +14,14 @@ else
   PLATFORM="LINUX"
 fi
 
+if [[ "$SHELL" == *"zsh"* ]]; then
+  SHELL_TYPE="zsh"
+else
+  SHELL_TYPE="bash"
+fi
+
 echo "==> Platform detected: $PLATFORM"
+echo "==> Shell detected: $SHELL_TYPE"
 
 echo "==> Updating brew..."
 brew update
@@ -47,12 +54,12 @@ for file in "$REPO_DIR"/home/.*; do
     continue
   fi
 
-  if [[ "$filename" == ".zshrc" && "$SHELL" != *"zsh"* ]]; then
+  if [[ "$filename" == ".zshrc" && "$SHELL_TYPE" != "zsh" ]]; then
     echo "Skipping .zshrc since current shell is not zsh"
     continue
   fi
 
-  if [[ "$filename" == ".bashrc" && "$SHELL" != *"bash"* ]]; then
+  if [[ "$filename" == ".bashrc" && "$SHELL_TYPE" != *"bash"* ]]; then
     echo "Skipping .bashrc since current shell is not bash"
     continue
   fi
@@ -62,10 +69,6 @@ for file in "$REPO_DIR"/home/.*; do
       echo "Backing up existing file: $target to $target.bak"
       mv "$target" "$target.bak"
       ln -sf "$file" "$target"
-
-      # Delete pnpm path lines from shell config file.
-      # This allows the lines to be added to Git, but prevents them from being added twice to the shell config.
-      grep -n "# pnpm" $target | cut -d: -f1 | sed ":a;N;$!ba;s/\n/,/g" | sed "s/$/d/" | sed -i -f - $target
     else
       echo "Skipping existing file: $target"
     fi
@@ -90,6 +93,17 @@ fi
 if ! command -v pnpm &> /dev/null; then
   echo "==> Installing pnpm..."
   curl -fsSL https://get.pnpm.io/install.sh | sh -
+  
+  echo "==> Clean pnpm path..."
+  if [[ "$SHELL_TYPE" == "zsh" ]]; then
+    SHELL_FILE=".zshrc"
+  else
+    SHELL_FILE=".bashrc"
+  fi
+
+  # Delete pnpm path lines from shell config file.
+  # This allows the lines to be added to Git, but prevents them from being added twice to the shell config.
+  grep -n "# pnpm" "$HOME/$SHELL_FILE" | cut -d: -f1 | sed ":a;N;$!ba;s/\n/,/g" | sed "s/$/d/" | sed -i -f - "$HOME/$SHELL_FILE"
 fi
 
 #######################################
