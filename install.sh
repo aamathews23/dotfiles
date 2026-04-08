@@ -62,6 +62,10 @@ for file in "$REPO_DIR"/home/.*; do
       echo "Backing up existing file: $target to $target.bak"
       mv "$target" "$target.bak"
       ln -sf "$file" "$target"
+
+      # Delete pnpm path lines from shell config file.
+      # This allows the lines to be added to Git, but prevents them from being added twice to the shell config.
+      grep -n "# pnpm" $target | cut -d: -f1 | sed ":a;N;$!ba;s/\n/,/g" | sed "s/$/d/" | sed -i -f - $target
     else
       echo "Skipping existing file: $target"
     fi
